@@ -1,75 +1,99 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React, { useState } from 'react';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
+  const [counter, setCounter] = useState(0);
+  const [message, setMessage] = useState("Press a button below.");
+
+  const handleIncrease = () => {
+    setCounter(prev => prev + 1);
+    setMessage("Counter increased!");
+  };
+
+  const handleReset = () => {
+    setCounter(0);
+    setMessage("Counter reset.");
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.screen}>
+      <View style={styles.phoneFrame}>
+        <Text style={styles.appTitle}>📱 Counter App</Text>
+
+        <View style={styles.container}>
+          <Text style={styles.label}>Counter Value:</Text>
+          <Text style={styles.counter}>{counter}</Text>
+          <Text style={styles.message}>{message}</Text>
+
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Button title="Increase" onPress={handleIncrease} />
+            </View>
+            <View style={styles.button}>
+              <Button title="Reset" onPress={handleReset} color="#D32F2F" />
+            </View>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  screen: {
+    flex: 1,
+    backgroundColor: '#202124',
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  phoneFrame: {
+    width: 320,
+    height: 580,
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  appTitle: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#1a73e8',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  counter: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#222',
+    marginBottom: 10,
+  },
+  message: {
+    fontSize: 16,
+    marginBottom: 40,
+    color: '#666',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 5,
   },
 });
