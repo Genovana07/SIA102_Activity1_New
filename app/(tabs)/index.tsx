@@ -1,37 +1,72 @@
-import React, { useState } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 export default function HomeScreen() {
-  const [counter, setCounter] = useState(0);
-  const [message, setMessage] = useState("Press a button below.");
-
-  const handleIncrease = () => {
-    setCounter(prev => prev + 1);
-    setMessage("Counter increased!");
-  };
-
-  const handleReset = () => {
-    setCounter(0);
-    setMessage("Counter reset.");
-  };
-
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.phoneFrame}>
-        <Text style={styles.appTitle}>📱 Counter App</Text>
+        {/* Title */}
+        <Text style={styles.title}>Attendance</Text>
 
         <View style={styles.container}>
-          <Text style={styles.label}>Counter Value:</Text>
-          <Text style={styles.counter}>{counter}</Text>
-          <Text style={styles.message}>{message}</Text>
+          {/* Input Fields */}
+          <View style={styles.inputColumn}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>First Name:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter first name"
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Last Name:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter last name"
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Section:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Section"
+              />
+            </View>
+          </View>
 
+          {/* Buttons */}
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="Increase" onPress={handleIncrease} />
+              <Button
+                title="Present"
+                onPress={() => {}}
+                color="#388E3C"
+              />
             </View>
             <View style={styles.button}>
-              <Button title="Reset" onPress={handleReset} color="#D32F2F" />
+              <Button
+                title="Absent"
+                onPress={() => {}}
+                color="#D32F2F"
+              />
             </View>
+          </View>
+
+          {/* Underline (divider) */}
+          <View style={styles.underline} />
+
+          {/* Below underline section */}
+          <View style={styles.belowUnderlineContainer}>
+            <Text style={styles.belowUnderlineText}>
+              Track attendance easily and stay organized!
+            </Text>
           </View>
         </View>
       </View>
@@ -47,8 +82,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   phoneFrame: {
-    width: 320,
-    height: 580,
+    width: 340,
+    height: 600,
     backgroundColor: '#fff',
     borderRadius: 30,
     padding: 20,
@@ -58,42 +93,67 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 10,
   },
-  appTitle: {
-    textAlign: 'center',
-    fontSize: 20,
+  title: {
+    fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 20,
-    color: '#1a73e8',
+    color: '#222',
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
-  label: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+  inputColumn: {
+    width: '100%',
     marginBottom: 10,
   },
-  counter: {
-    fontSize: 48,
-    fontWeight: 'bold',
+  inputGroup: {
+    marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '600',
     color: '#222',
-    marginBottom: 10,
+    marginBottom: 4,
+    textAlign: 'left',
   },
-  message: {
-    fontSize: 16,
-    marginBottom: 40,
-    color: '#666',
-    textAlign: 'center',
+  input: {
+    borderWidth: 1,
+    borderColor: '#bbb',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    fontSize: 14,
+    backgroundColor: '#f9f9f9',
+    textAlign: 'left',
   },
   buttonContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
     gap: 10,
   },
   button: {
     width: 100,
     marginHorizontal: 5,
+  },
+  underline: {
+    borderBottomColor: '#bbb',
+    borderBottomWidth: 1,
+    marginVertical: 20,
+    width: '100%',
+  },
+  belowUnderlineContainer: {
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 10,
+  },
+  belowUnderlineText: {
+    fontSize: 14,
+    color: '#555',
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
